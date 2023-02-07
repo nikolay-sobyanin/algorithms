@@ -16,6 +16,13 @@ def search_point(d: int, x: int, y: int) -> int:
 	return near_vertex
 
 
+def optimal_search_point(d: int, x: int, y: int) -> int:
+	if (x >= 0) and (y >= 0) and (x + y <= d):
+		return 0
+	dist = [(x**2 + y**2, 1), ((x - d)**2 + y**2, 2), (x**2 + (y - d)**2, 3)]
+	return min(dist)[1]
+
+
 d = int(input())
 point = tuple(map(int, input().split()))
 print(search_point(d, *point))
