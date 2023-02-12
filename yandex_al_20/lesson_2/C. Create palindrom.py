@@ -1,7 +1,7 @@
 def cost(s: str) -> int:
 	"""Algorithm complexity == O(N)"""
 	l = len(s)
-	if (l == 0) and (l == 1):
+	if (l == 0) or (l == 1):
 		return 0
 	
 	ans = 0
