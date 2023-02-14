@@ -8,7 +8,7 @@ def car_numbers(file_name: str):
     nowm = 0
     for numb in numbers:
         for prof in witness:
-            if not (set(prof) - set(numb[0])):
+            if set(prof) <= set(numb[0]):
                 numb[1] += 1
         if numb[1] > nowm:
             nowm = numb[1]
