@@ -1,3 +1,11 @@
+# from threading import stack_size
+# from sys import setrecursionlimit
+#
+#
+# setrecursionlimit(1000000)
+# stack_size(134217728)
+
+
 with open('input.txt', 'r') as file:
     n, m = map(int, file.readline().strip().split())
     graph = [[] for _ in range(n + 1)]
