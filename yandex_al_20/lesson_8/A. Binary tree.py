@@ -1,39 +1,46 @@
-tree = []
+bin_tree = []
 
 
-def search_tree(tree, n):
+def search_tree(tree, x):
     if len(tree) == 0:
         return False
-
-    if n == tree[0]:
+    key, left, right = tree
+    if x == key:
         return True
-    elif n < tree[0]:
-        if search_tree(tree[1], n):
-            return True
-        else:
+    elif x < key:
+        if not left:
             return False
-    elif tree[0] < n:
-        if search_tree(tree[2], n):
-            return True
         else:
+            return search_tree(left, x)
+    elif x > key:
+        if not right:
             return False
+        else:
+            return search_tree(right, x)
 
 
-def add_tree(tree, n):
+def add_tree(tree, x):
     if len(tree) == 0:
-        tree.append(n)
+        tree.append(x)
         tree.append([])
         tree.append([])
         return
+    key, left, right = tree
+    if x < key:
+        add_tree(left, x)
+    elif x > key:
+        add_tree(right, x)
 
-    if n < tree[0]:
-        add_tree(tree[1], n)
-    elif n > tree[0]:
-        add_tree(tree[2], n)
 
+def print_tree(tree, depth=0):
+    key, left, right = tree
 
-def print_tree():
-    pass
+    if left:
+        print_tree(left, depth + 1)
+    print('.' * depth + str(key))
+
+    if right:
+        print_tree(right, depth + 1)
 
 
 with open('input.txt', 'r') as file:
@@ -43,17 +50,17 @@ with open('input.txt', 'r') as file:
 
         if cmd == 'ADD':
             n = int(text[1])
-            if search_tree(tree, n):
+            if search_tree(bin_tree, n):
                 print('ALREADY')
             else:
-                add_tree(tree, n)
+                add_tree(bin_tree, n)
                 print('DONE')
         elif cmd == 'SEARCH':
             n = int(text[1])
-            if search_tree(tree, n):
+            if search_tree(bin_tree, n):
                 print('YES')
             else:
                 print('NO')
         elif cmd == 'PRINTTREE':
-            print_tree()
+            print_tree(bin_tree)
 
